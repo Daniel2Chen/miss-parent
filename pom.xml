@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.miss</groupId>
+    <artifactId>miss-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!-- 添加module后需要先对parent进行install 否则编译其他微服务时会找不到公共依赖包-->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+
+        <!--
+        该版本会使eureka无法启动，
+        报错信息：NoSuchBeanDefinitionException: No qualifying bean of type 'javax.servlet.Filter'
+        因此需降低springboot版本 (springCloud与springboot版本匹配之坑)
+        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
+        -->
+        <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
+        <spring-cloud.version>Greenwich.SR4</spring-cloud.version>
+        <spring-platform.version>Cairo-SR8</spring-platform.version>
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <hutool.version>5.4.5</hutool.version>
+        <orika-boot.version>1.8.0</orika-boot.version>
+        <swagger.core.version>1.5.23</swagger.core.version>
+        <swagger-boot.version>1.9.0.RELEASE</swagger-boot.version>
+
+        <p6spy.version>3.8.5</p6spy.version>
+        <fastjson.version>1.2.60</fastjson.version>
+        <jwt.auth0.version>3.8.3</jwt.auth0.version>
+        <maven.test.skip>true</maven.test.skip>
+        <aliyun-java-sdk-dysmsapi.version>1.1.0</aliyun-java-sdk-dysmsapi.version>
+        <aliyun-java-sdk-core.version>3.7.1</aliyun-java-sdk-core.version>
+        <mail.version>1.4.7</mail.version>
+
+        <poi.version>4.1.2</poi.version>
+
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+        <!--<maven-deploy-plugin.version>2.5</maven-deploy-plugin.version>-->
+
+        <!--<project.snapshot.version>0.1&#45;&#45;SNAPSHOT</project.snapshot.version>-->
+        <project.release.version>1.0</project.release.version>
+
+        <org.redisson.version>3.9.1</org.redisson.version>
+
+        <java.version>1.8</java.version>
+
+        <miss-base-api>1.0-SNAPSHOT</miss-base-api>
+        <miss-base-core>1.0-SNAPSHOT</miss-base-core>
+        <miss-base-biz>1.0-SNAPSHOT</miss-base-biz>
+        <miss-base-web>1.0-SNAPSHOT</miss-base-web>
+        <miss-base-platform>1.0-SNAPSHOT</miss-base-platform>
+
+        <miss-common-file-aliyun.version>1.0-SNAPSHOT</miss-common-file-aliyun.version>
+        <miss-common-cache-redis.version>1.0-SNAPSHOT</miss-common-cache-redis.version>
+
+        <weixin-tools-binarywang.version>3.9.0</weixin-tools-binarywang.version>
+
+        <aliyun-sdk-oss.verdsion>3.8.0</aliyun-sdk-oss.verdsion>
+        <aliyun-java-sdk-vod.version>2.15.5</aliyun-java-sdk-vod.version>
+
+        <rocketmq-spring-boot-starter.version>2.0.4</rocketmq-spring-boot-starter.version>
+        <httpclient.version>4.5.9</httpclient.version>
+
+        <spring-security-oauth2.version>2.3.3.RELEASE</spring-security-oauth2.version>
+
+        <feign-gson.version>8.18.0</feign-gson.version>
+
+        <nacos.version>0.9.0.RELEASE</nacos.version>
+        <hugegraph.version>1.8.0</hugegraph.version>
+        <canal-client.version>1.1.4</canal-client.version>
+        <org.jsoup>1.13.1</org.jsoup>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!--miss.base start-->
+
+            <dependency>
+                <groupId>com.miss</groupId>
+                <artifactId>miss-base-api</artifactId>
+                <version>${miss-base-api}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.miss</groupId>
+                <artifactId>miss-base-core</artifactId>
+                <version>${miss-base-core}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.miss</groupId>
+                <artifactId>miss-base-biz</artifactId>
+                <version>${miss-base-biz}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.miss</groupId>
+                <artifactId>miss-base-web</artifactId>
+                <version>${miss-base-web}</version>
+            </dependency>
+
+            <!--&lt;!&ndash;elasticsearch&ndash;&gt;-->
+            <!--<dependency>-->
+            <!--<groupId>org.springframework.data</groupId>-->
+            <!--<artifactId>spring-data-elasticsearch</artifactId>-->
+            <!--<version>3.2.1.RELEASE</version>-->
+            <!--</dependency>-->
+
+            <!-- Java Low Level REST Client -->
+
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>6.8.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>2.6.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>6.8.0</version>
+            </dependency>
+
+            <!-- Java High Level REST Client -->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.elasticsearch</groupId>
+                        <artifactId>elasticsearch</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.elasticsearch.client</groupId>
+                        <artifactId>elasticsearch-rest-client</artifactId>
+                    </exclusion>
+                </exclusions>
+                <version>6.8.0</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>2.1.6.RELEASE</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.miss</groupId>
+                <artifactId>miss-common-file-aliyun</artifactId>
+                <version>${miss-common-file-aliyun.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.miss</groupId>
+                <artifactId>miss-common-cache-redis</artifactId>
+                <version>${miss-common-cache-redis.version}</version>
+            </dependency>
+
+            <!--<dependency>-->
+            <!--<groupId>com.miss</groupId>-->
+            <!--<artifactId>miss-common-mq-disruptor</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+            <!--</dependency>-->
+
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${org.redisson.version}</version>
+            </dependency>
+
+            <!--miss.base end-->
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.spring.platform</groupId>
+                <artifactId>platform-bom</artifactId>
+                <version>${spring-platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <!--==================================================-->
+            <!--mybatis plus extension,包含了mybatis plus core-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--mybatis-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!--swagger 依赖-->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring4all</groupId>
+                <artifactId>swagger-spring-boot-starter</artifactId>
+                <version>${swagger-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
+            </dependency>
+            <!--==================================================-->
+            <!--hutool 工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-codec</groupId>
+                        <artifactId>commons-codec</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.poi</groupId>
+                        <artifactId>poi</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <!--bean copy-->
+            <dependency>
+                <groupId>net.rakugakibox.spring.boot</groupId>
+                <artifactId>orika-spring-boot-starter</artifactId>
+                <version>${orika-boot.version}</version>
+            </dependency>
+
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--jwt-->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.auth0.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+                <version>${aliyun-java-sdk-dysmsapi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun-java-sdk-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${mail.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-miniapp</artifactId>
+                <version>${weixin-tools-binarywang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-open</artifactId>
+                <version>${weixin-tools-binarywang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-pay</artifactId>
+                <version>${weixin-tools-binarywang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-mp</artifactId>
+                <version>${weixin-tools-binarywang.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-vod</artifactId>
+                <version>${aliyun-java-sdk-vod.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun-sdk-oss.verdsion}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq-spring-boot-starter.version}</version>
+            </dependency>
+            <!-- zookeeper -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>3.4.10</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--curator-->
+            <dependency>
+                <!-- 对zookeeper的底层api的一些封装 -->
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+                <version>2.12.0</version>
+            </dependency>
+            <dependency>
+                <!-- 封装了一些高级特性，如：Cache事件监听、选举、分布式锁、分布式Barrier -->
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>2.12.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>3.4.2</version>
+            </dependency><!-- httpclient -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${spring-security-oauth2.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-gson</artifactId>
+                <version>${feign-gson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${nacos.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${nacos.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baidu.hugegraph</groupId>
+                <artifactId>hugegraph-client</artifactId>
+                <version>${hugegraph.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.client</artifactId>
+                <version>${canal-client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${org.jsoup}</version>
+            </dependency>
+
+        </dependencies>
+
+
+    </dependencyManagement>
+
+    <dependencies>
+        <!--配置文件处理器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--测试依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.name}-${project.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>0.0.15</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven-deploy-plugin.version}</version>
+                <!--<configuration>
+                    <skip>true</skip>
+                </configuration>-->
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.2.78:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.2.78:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>dev</profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>local</id>
+            <properties>
+                <profiles.active>local</profiles.active>
+                <!--<project.snapshot.version>0.1</project.snapshot.version>-->
+            </properties>
+            <activation>
+                <!-- 默认环境 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <profiles.active>test</profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <profiles.active>uat</profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profiles.active>prod</profiles.active>
+                <project.release.version>0.1</project.release.version>
+            </properties>
+        </profile>
+    </profiles>
+</project>
